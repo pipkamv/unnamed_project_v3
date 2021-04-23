@@ -22,6 +22,17 @@ class ExcelFileTemplatesViewSet(ModelViewSet):
     queryset = ExcelFileTemplate.objects.all()
     serializer_class = ExcelFileTemplatesSerializer
 
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
 
 class ExcelFileViewSet(ModelViewSet):
     permission_classes = (IsAuthenticated, )
@@ -39,18 +50,14 @@ class ExcelFileViewSet(ModelViewSet):
         serializer.save(user=self.request.user)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    # def destroy(self, request, *args, **kwargs):
-    #     serializer = self.serializer_class(data=self.request.data)
-    #     id_file = serializer.initial_data['excel_id']
-    #     print(id_file)
-    #     name_file = ''
-    #     for i in ExcelFile.objects.filter(id=id_file):
-    #         name_file += str(i)
-    #     print(name_file)
-    #     os.remove('media/' + name_file)
-    #     instance = self.get_object()
-    #     self.perform_destroy(instance)
-    #     return Response(status=status.HTTP_204_NO_CONTENT)
+    def destroy(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=self.request.data)
+        id_file = serializer.initial_data['id']
+        name_file = ExcelFile.objects.get(id=id_file).excel_file
+        os.remove('media/' + str(name_file))
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class ReportViewSet(ModelViewSet):
@@ -98,3 +105,31 @@ class AddProductToExcelFileViewSet(ModelViewSet):
         for i, j in serializer.data.items():
             print(f"{str(i)}" + ": " + f"{str(j)}")
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class OrderViewSet(ModelViewSet):
+    queryset = ExcelFile.objects.filter(is_order=True)
+    serializer_class = ExcelFileSerializer
+    http_method_names = ['get']
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
+
+class SendDataViewSet(ModelViewSet):
+    queryset = ExcelFile.objects.all()
+    serializer_class = ExcelFileSerializer
+    http_method_names = ['post', 'get']
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.serializer_class(request.data)
+        is_order = serializer.data['is_order']
+        exel_id = serializer.data['id']
+        ExcelFile.objects.filter(id=exel_id).update(is_order=is_order)
+        return Response(status=status.HTTP_201_CREATED)

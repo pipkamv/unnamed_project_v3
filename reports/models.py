@@ -13,13 +13,14 @@ class ExcelFileTemplate(models.Model):
 
 class ExcelFile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
-    excel_file = models.FileField(upload_to='excel_files', blank=True, null=True)
+    excel_file = models.FileField(
+        upload_to='excel_files/',
+        blank=True,
+        null=True
+    )
     file_name = models.CharField(max_length=64, default='')
 
     is_order = models.BooleanField(default=False)
-
-    def __str__(self):
-        return '__all__'
 
     def save(self, *args, **kwargs):
         self.file_name = self.excel_file.name

@@ -52,7 +52,6 @@ INSTALLED_APPS = [
     'accountant.apps.AccountantConfig',
     'news.apps.NewsConfig',
     'reports.apps.ReportsConfig',
-    'vlad.apps.VladConfig',
 
     # cors
     'corsheaders',
@@ -158,7 +157,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'asddb',
+        'NAME': 'norma',
         'USER': 'asd',
         'PASSWORD': 'asd',
         'HOST': '127.0.0.1',

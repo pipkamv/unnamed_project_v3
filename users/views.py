@@ -169,10 +169,6 @@ class LoginAPIView(APIView):
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
-        # all_ = User.objects.filter(email=request.data['email'])
-        # asd = ''
-        # for i in all_:
-        #     asd += str(i)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
