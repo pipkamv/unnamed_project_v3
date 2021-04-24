@@ -13,8 +13,8 @@ router.register('excel-templates', ExcelFileTemplatesViewSet)
 router.register('add-product', AddProductToExcelFileViewSet)
 router.register('send', SendDataViewSet)
 router.register('room', OrderViewSet)
+router.register('reports-list-filter', ReportListView)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('reports-list-filter/', ReportListView.as_view(), name='reports-list-filter')
 ]

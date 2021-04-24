@@ -77,9 +77,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     objects = MyUserManager()
 
-    def __str__(self):
-        return self.first_name
-
     @property
     def token(self):
         return self._generate_jwt_token()

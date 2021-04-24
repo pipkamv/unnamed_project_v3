@@ -66,6 +66,7 @@ class ReportViewSet(ModelViewSet):
     serializer_class = ReportSerializer
 
     def list(self, request, *args, **kwargs):
+        print(request.data)
         report = self.queryset.filter(user=self.request.user)
         serializer = self.serializer_class(report, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -82,15 +83,28 @@ def check_on_num(request_read):
     return id_exel_file[::-1]
 
 
-class ReportListView(generics.ListAPIView):
+class ReportListView(ModelViewSet):
     queryset = Report.objects.all()
     serializer_class = ReportSerializer
 
+    # def list(self, request, *args, **kwargs):
+    #     print(request.data)
+    #     exel_file = check_on_num(request.read)
+    #     report = self.queryset.filter(excel_file=exel_file)
+    #     serializer = self.serializer_class(report, many=True)
+    #     return Response(serializer.data, status=status.HTTP_200_OK)
+
     def list(self, request, *args, **kwargs):
-        exel_file = check_on_num(request.read)
-        report = self.queryset.filter(excel_file=exel_file)
-        serializer = self.serializer_class(report, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        print(request.data)
+        queryset = self.filter_queryset(self.get_queryset())
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
 
 
 class AddProductToExcelFileViewSet(ModelViewSet):

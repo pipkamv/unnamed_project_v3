@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+from users.models import User
 from .models import (
     Report, ExcelFile, ExcelFileTemplate, AddProductToExcelFile
 )
@@ -33,4 +34,3 @@ class AddProductToExcelFileSerializer(serializers.ModelSerializer):
     class Meta:
         model = AddProductToExcelFile
         fields = '__all__'
-
