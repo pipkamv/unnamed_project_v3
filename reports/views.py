@@ -1,3 +1,5 @@
+import json
+
 from django_filters.rest_framework import DjangoFilterBackend
 import os
 
@@ -7,14 +9,16 @@ from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.views import APIView
 
+from .serializers import UserSerializer
 from .serializers import (
     ReportSerializer, ExcelFileSerializer, ExcelFileTemplatesSerializer,
-    AddProductToExcelFileSerializer
-)
+    AddProductToExcelFileSerializer, UserSerializer)
+
 from .models import (
-    Report, ExcelFile, ExcelFileTemplate, AddProductToExcelFile
-)
+    Report, ExcelFile, ExcelFileTemplate, AddProductToExcelFile)
+from users.models import User
 
 
 class ExcelFileTemplatesViewSet(ModelViewSet):
@@ -111,7 +115,7 @@ class AddProductToExcelFileViewSet(ModelViewSet):
 class SendDataViewSet(ModelViewSet):
     queryset = ExcelFile.objects.all()
     serializer_class = ExcelFileSerializer
-    http_method_names = ['post']
+    http_method_names = ['post', 'get']
 
     def create(self, request, *args, **kwargs):
         serializer = self.serializer_class(request.data)
@@ -119,6 +123,12 @@ class SendDataViewSet(ModelViewSet):
         exel_id = serializer.data['id']
         ExcelFile.objects.filter(id=exel_id).update(is_order=is_order)
         return Response(status=status.HTTP_201_CREATED)
+
+    def list(self, request, *args, **kwargs):
+        exel_file = check_on_num(request.read)
+        queryset = User.objects.get(id=exel_file)
+        serializer = UserSerializer(queryset)
+        return Response(serializer.data)
 
 
 class OrderViewSet(ModelViewSet):
@@ -134,5 +144,3 @@ class OrderViewSet(ModelViewSet):
             return self.get_paginated_response(serializer.data)
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
-
-
