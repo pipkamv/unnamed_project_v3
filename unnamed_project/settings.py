@@ -131,23 +131,6 @@ WSGI_APPLICATION = 'unnamed_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-# DEPLOY = config('DEPLOY', cast=bool)
-# if DEPLOY:
-#     DATABASES = {
-#         'default': dj_database_url.config(default=config('DATABASE_URL'))
-#     }
-# else:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#             'NAME': config('DB_NAME'),
-#             'USER': config('DB_USER'),
-#             'PASSWORD': config('DB_PASS'),
-#             'HOST': config('DB_HOST'),
-#             'PORT': config('DB_PORT')
-#         }
-#     }
-
 
 DATABASES_URL = 'postgres://rqgehybrogueht:dc2330968da00894c68ee3b186f4e5532cf2727285ff007b5c35663fe267da83@ec2-54-167-152-185.compute-1.amazonaws.com:5432/d230gc92pkm9hs'
 

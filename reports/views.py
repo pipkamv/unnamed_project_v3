@@ -87,24 +87,11 @@ class ReportListView(ModelViewSet):
     queryset = Report.objects.all()
     serializer_class = ReportSerializer
 
-    # def list(self, request, *args, **kwargs):
-    #     print(request.data)
-    #     exel_file = check_on_num(request.read)
-    #     report = self.queryset.filter(excel_file=exel_file)
-    #     serializer = self.serializer_class(report, many=True)
-    #     return Response(serializer.data, status=status.HTTP_200_OK)
-
     def list(self, request, *args, **kwargs):
-        print(request.data)
-        queryset = self.filter_queryset(self.get_queryset())
-
-        page = self.paginate_queryset(queryset)
-        if page is not None:
-            serializer = self.get_serializer(page, many=True)
-            return self.get_paginated_response(serializer.data)
-
-        serializer = self.get_serializer(queryset, many=True)
-        return Response(serializer.data)
+        exel_file = check_on_num(request.read)
+        report = self.queryset.filter(excel_file=exel_file)
+        serializer = self.serializer_class(report, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class AddProductToExcelFileViewSet(ModelViewSet):
@@ -119,6 +106,19 @@ class AddProductToExcelFileViewSet(ModelViewSet):
         for i, j in serializer.data.items():
             print(f"{str(i)}" + ": " + f"{str(j)}")
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class SendDataViewSet(ModelViewSet):
+    queryset = ExcelFile.objects.all()
+    serializer_class = ExcelFileSerializer
+    http_method_names = ['post']
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.serializer_class(request.data)
+        is_order = serializer.data['is_order']
+        exel_id = serializer.data['id']
+        ExcelFile.objects.filter(id=exel_id).update(is_order=is_order)
+        return Response(status=status.HTTP_201_CREATED)
 
 
 class OrderViewSet(ModelViewSet):
@@ -136,14 +136,3 @@ class OrderViewSet(ModelViewSet):
         return Response(serializer.data)
 
 
-class SendDataViewSet(ModelViewSet):
-    queryset = ExcelFile.objects.all()
-    serializer_class = ExcelFileSerializer
-    http_method_names = ['post', 'get']
-
-    def create(self, request, *args, **kwargs):
-        serializer = self.serializer_class(request.data)
-        is_order = serializer.data['is_order']
-        exel_id = serializer.data['id']
-        ExcelFile.objects.filter(id=exel_id).update(is_order=is_order)
-        return Response(status=status.HTTP_201_CREATED)

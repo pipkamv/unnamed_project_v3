@@ -37,6 +37,7 @@ def save_file_data(sender, instance, created, **kwargs):
                 clothing_value=str(i[9]),
                 composition=str(i[10]),
                 standard_no=str(i[11]),
-                status=str(i[12])
+                status=str(i[12]),
+                result_treatment_data=str(i[13]),
             )
             report.save()

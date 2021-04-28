@@ -208,6 +208,10 @@ class UserUpdateAPIView(APIView):
         except:
             return JsonResponse({'status': 0, 'message': 'Error on user update'})
 
+    def list(self, request):
+        queryset = User.objects.all()
+        return Response(queryset)
+
 
 class CurrentUserView(APIView):
     serializer_class = UserSerializer

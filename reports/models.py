@@ -43,6 +43,7 @@ class Report(models.Model):
     composition = models.CharField(max_length=64, default='')
     standard_no = models.CharField(max_length=64, default='')
     status = models.CharField(max_length=64, default='')
+    result_treatment_data = models.CharField(max_length=64, default='')
 
     def __str__(self):
         return f'{self.user}, {self.excel_file}'
