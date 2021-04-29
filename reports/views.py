@@ -1,5 +1,5 @@
 import json
-
+from datetime import datetime
 from django_filters.rest_framework import DjangoFilterBackend
 import os
 
@@ -143,4 +143,5 @@ class OrderViewSet(ModelViewSet):
             serializer = self.get_serializer(page, many=True)
             return self.get_paginated_response(serializer.data)
         serializer = self.get_serializer(queryset, many=True)
+        print(serializer.data)
         return Response(serializer.data)

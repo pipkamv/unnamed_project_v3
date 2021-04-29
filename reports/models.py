@@ -19,8 +19,9 @@ class ExcelFile(models.Model):
         null=True
     )
     file_name = models.CharField(max_length=64, default='')
-
     is_order = models.BooleanField(default=False)
+
+    date_send = models.DateTimeField(auto_now_add=True)
 
     def save(self, *args, **kwargs):
         self.file_name = self.excel_file.name
