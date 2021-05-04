@@ -17,7 +17,7 @@ SECRET_KEY = "RIHUyrryrr83ygf75632ru933r/3/3*4*4/*3efefeRIHUyrryrr83ygf75632ru93
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['185.29.184.52']
 
 # Application definition
 
@@ -58,9 +58,9 @@ INSTALLED_APPS = [
 SITE_ID = 1
 
 
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+# SECURE_SSL_REDIRECT = True
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
 
 AUTH_USER_MODEL = 'users.User'
 
