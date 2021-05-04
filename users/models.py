@@ -77,6 +77,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     objects = MyUserManager()
 
+    def __str__(self):
+        return '%s %s' % (self.first_name, self.last_name)
+
     @property
     def token(self):
         return self._generate_jwt_token()
@@ -94,4 +97,3 @@ class User(AbstractBaseUser, PermissionsMixin):
             'exp': dt.utcfromtimestamp(dt.timestamp())
         }, settings.SECRET_KEY, algorithm='HS256')
         return token.decode('utf-8')
-
