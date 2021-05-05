@@ -19,40 +19,6 @@ from .models import (
 from users.models import User
 
 
-class SendDataViewSet(ModelViewSet):
-    queryset = ExcelFile.objects.all()
-    serializer_class = ExcelFileSerializer
-    http_method_names = ['post', 'get']
-
-    def create(self, request, *args, **kwargs):
-        serializer = self.serializer_class(request.data)
-        is_order = serializer.data['is_order']
-        exel_id = serializer.data['id']
-        ExcelFile.objects.filter(id=exel_id).update(is_order=is_order)
-        return Response(status=status.HTTP_201_CREATED)
-
-    def list(self, request, *args, **kwargs):
-        exel_file = check_on_num(request.read)
-        queryset = User.objects.get(id=exel_file)
-        serializer = UserSerializer(queryset)
-        return Response(serializer.data)
-
-
-class OrderViewSet(ModelViewSet):
-    queryset = ExcelFile.objects.filter(is_order=True)
-    serializer_class = ExcelFileSerializer
-    http_method_names = ['get']
-
-    def list(self, request, *args, **kwargs):
-        queryset = self.filter_queryset(self.get_queryset())
-        page = self.paginate_queryset(queryset)
-        if page is not None:
-            serializer = self.get_serializer(page, many=True)
-            return self.get_paginated_response(serializer.data)
-        serializer = self.get_serializer(queryset, many=True)
-        return Response(serializer.data)
-
-
 class ExcelFileTemplatesViewSet(ModelViewSet):
     permission_classes = (IsAuthenticated, )
     queryset = ExcelFileTemplate.objects.all()
@@ -144,37 +110,35 @@ class AddProductToExcelFileViewSet(ModelViewSet):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-# class SendDataViewSet(ModelViewSet):
-#     queryset = ExcelFile.objects.all()
-#     serializer_class = ExcelFileSerializer
-#     http_method_names = ['post', 'get']
-#
-#     def create(self, request, *args, **kwargs):
-#         serializer = self.serializer_class(request.data)
-#         is_order = serializer.data['is_order']
-#         exel_id = serializer.data['id']
-#         ExcelFile.objects.filter(id=exel_id).update(is_order=is_order)
-#         return Response(status=status.HTTP_201_CREATED)
-#
-#     def list(self, request, *args, **kwargs):
-#         exel_file = check_on_num(request.read)
-#         queryset = User.objects.get(id=exel_file)
-#         serializer = UserSerializer(queryset)
-#         return Response(serializer.data)
-#
-#
-# class OrderViewSet(ModelViewSet):
-#     queryset = ExcelFile.objects.filter(is_order=True)
-#     serializer_class = ExcelFileSerializer
-#     http_method_names = ['get']
-#
-#     def list(self, request, *args, **kwargs):
-#         queryset = self.filter_queryset(self.get_queryset())
-#         page = self.paginate_queryset(queryset)
-#         if page is not None:
-#             serializer = self.get_serializer(page, many=True)
-#             return self.get_paginated_response(serializer.data)
-#         serializer = self.get_serializer(queryset, many=True)
-#         return Response(serializer.data)
+class SendDataViewSet(ModelViewSet):
+    queryset = ExcelFile.objects.all()
+    serializer_class = ExcelFileSerializer
+    http_method_names = ['post', 'get']
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.serializer_class(request.data)
+        is_order = serializer.data['is_order']
+        exel_id = serializer.data['id']
+        ExcelFile.objects.filter(id=exel_id).update(is_order=is_order)
+        return Response(status=status.HTTP_201_CREATED)
+
+    def list(self, request, *args, **kwargs):
+        exel_file = check_on_num(request.read)
+        queryset = User.objects.get(id=exel_file)
+        serializer = UserSerializer(queryset)
+        return Response(serializer.data)
 
 
+class OrderViewSet(ModelViewSet):
+    queryset = ExcelFile.objects.filter(is_order=True)
+    serializer_class = ExcelFileSerializer
+    http_method_names = ['get']
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
