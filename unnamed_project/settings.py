@@ -196,3 +196,13 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'alex.web.developer.kg@gmail.com'  # config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = 'ffzrsonqhiwrmoha'  # config('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
+
+CORS_REPLACE_HTTPS_REFERER      = False
+HOST_SCHEME                     = "http://"
+SECURE_PROXY_SSL_HEADER         = None
+SECURE_SSL_REDIRECT             = False
+SESSION_COOKIE_SECURE           = False
+CSRF_COOKIE_SECURE              = False
+SECURE_HSTS_SECONDS             = None
+SECURE_HSTS_INCLUDE_SUBDOMAINS  = False
+SECURE_FRAME_DENY               = False
