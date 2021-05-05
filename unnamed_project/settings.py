@@ -12,7 +12,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "RIHUyrryrr83ygf75632ru933r/3/3*4*4/*3efefeRIHUyrryrr83ygf75632ru933r/3/3*4*4/*3efefeRIHUyrryrr83ygf75632r"
+SECRET_KEY = "config('SECRET_KEY')"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -128,7 +128,6 @@ WSGI_APPLICATION = 'unnamed_project.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
 
 DATABASES_URL = 'postgres://rqgehybrogueht:dc2330968da00894c68ee3b186f4e5532cf2727285ff007b5c35663fe267da83@ec2-54-167-152-185.compute-1.amazonaws.com:5432/d230gc92pkm9hs'
 
