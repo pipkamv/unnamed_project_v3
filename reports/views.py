@@ -1,5 +1,6 @@
 from django_filters.rest_framework import DjangoFilterBackend
 import os
+import shutil
 
 from rest_framework import status
 from rest_framework import filters
@@ -54,9 +55,9 @@ class ExcelFileViewSet(ModelViewSet):
 
     def destroy(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=self.request.data)
-        # id_file = serializer.initial_data['id']
-        # name_file = ExcelFile.objects.get(id=id_file).excel_file
-        # os.remove('media/' + str(name_file))
+        id_file = serializer.initial_data['id']
+        name_file = ExcelFile.objects.get(id=id_file).excel_file
+        os.remove('media/' + str(name_file))
         instance = self.get_object()
         self.perform_destroy(instance)
         return Response(status=status.HTTP_204_NO_CONTENT)
