@@ -72,8 +72,9 @@ class RegistrationAPIView(generics.GenericAPIView):
         token = RefreshToken.for_user(user).access_token
         relativeLink = reverse('users:email-verify')
         absurl = 'http://lk.norma.kg/auth/activate/' + str(token)
-        email_body = 'Hi ' + user.first_name + \
-                     ' Use the link below to verify your email \n This token is available only for 10 minutes \n' + \
+        email_body = 'Здраствуйте ' + user.first_name + \
+                     'Используйте ссылку ниже что бы активировать аккаунт \n ' \
+                     'Ссылка будет ативен 10 минут \n' + \
                      absurl
         data = {'email_body': email_body, 'to_email': user.email,
                 'email_subject': 'Verify your email'}
