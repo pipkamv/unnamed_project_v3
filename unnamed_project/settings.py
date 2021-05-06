@@ -193,8 +193,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'novayanormaid@gmail.com'# alex.web.developer.kg@gmail.com
-EMAIL_HOST_PASSWORD = '7355608novaya'  # config('EMAIL_HOST_PASSWORD')ffzrsonqhiwrmoha
+EMAIL_HOST_USER = 'alex.web.developer.kg@gmail.com'  # alex.web.developer.kg@gmail.com
+EMAIL_HOST_PASSWORD = 'ffzrsonqhiwrmoha'  # config('EMAIL_HOST_PASSWORD')ffzrsonqhiwrmoha
 EMAIL_PORT = 587
 
 CORS_REPLACE_HTTPS_REFERER      = False
