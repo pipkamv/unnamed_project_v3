@@ -169,7 +169,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'ru-ru'
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'Asia/Bishkek'
 
@@ -192,8 +192,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'alex.web.developer.kg@gmail.com'  # config('EMAIL_HOST_USER')
+EMAIL_HOST = 'isa2005kov'
+EMAIL_HOST_USER = 'iakykbek005@gmail.com'  # config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = 'ffzrsonqhiwrmoha'  # config('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
 
