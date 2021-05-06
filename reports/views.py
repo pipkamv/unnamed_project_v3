@@ -1,6 +1,4 @@
 from django_filters.rest_framework import DjangoFilterBackend
-import os
-import shutil
 
 from rest_framework import status
 from rest_framework import filters
@@ -18,6 +16,8 @@ from .serializers import (
 from .models import (
     Report, ExcelFile, ExcelFileTemplate, AddProductToExcelFile)
 from users.models import User
+from datetime import datetime
+import os
 
 
 class ExcelFileTemplatesViewSet(ModelViewSet):
@@ -120,7 +120,7 @@ class SendDataViewSet(ModelViewSet):
         serializer = self.serializer_class(request.data)
         is_order = serializer.data['is_order']
         exel_id = serializer.data['id']
-        ExcelFile.objects.filter(id=exel_id).update(is_order=is_order)
+        ExcelFile.objects.filter(id=exel_id).update(is_order=is_order, date_send=datetime.now())
         return Response(status=status.HTTP_201_CREATED)
 
     def list(self, request, *args, **kwargs):
