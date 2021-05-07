@@ -189,13 +189,14 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # django_heroku.settings(locals())
 
-# 7355608novaya
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'alex.web.developer.kg@gmail.com' # alex.web.developer.kg@gmail.com, novayanormaip@gmail.com
-EMAIL_HOST_PASSWORD = 'ffzrsonqhiwrmoha'  #ffzrsonqhiwrmoha, 12345novaya
+EMAIL_HOST_USER = 'Novaya.norma.lk@gmail.com'  # config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = 'LoRaGroup2020'  # config('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
+
 
 CORS_REPLACE_HTTPS_REFERER      = False
 HOST_SCHEME                     = "http://"
