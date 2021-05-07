@@ -11,8 +11,11 @@ from rest_framework.views import APIView
 from .serializers import (
     ReportSerializer, ExcelFileSerializer, ExcelFileTemplatesSerializer,
     AddProductToExcelFileSerializer, UserSerializer)
+
 from .models import Report, ExcelFile, ExcelFileTemplate, AddProductToExcelFile
 from users.models import User
+
+from unnamed_project.settings import BASE_DIR
 
 from datetime import datetime
 import os
@@ -55,7 +58,7 @@ class ExcelFileViewSet(ModelViewSet):
         serializer = self.serializer_class(data=self.request.data)
         id_file = serializer.initial_data['id']
         name_file = ExcelFile.objects.get(id=id_file).excel_file
-        os.remove('/home/xxxx/unnamed_project_v3/media/' + str(name_file))
+        os.remove(BASE_DIR + '/media/' + str(name_file))
         instance = self.get_object()
         self.perform_destroy(instance)
         return Response(status=status.HTTP_204_NO_CONTENT)
@@ -115,6 +118,7 @@ class SendDataViewSet(ModelViewSet):
     http_method_names = ['post', 'get']
 
     def create(self, request, *args, **kwargs):
+        """Обновляет is_order на True из-за чего он отправляется на админку"""
         serializer = self.serializer_class(request.data)
         is_order = serializer.data['is_order']
         exel_id = serializer.data['id']
@@ -122,7 +126,7 @@ class SendDataViewSet(ModelViewSet):
         return Response(status=status.HTTP_201_CREATED)
 
     def list(self, request, *args, **kwargs):
-        """Показывает кто из User отправил Excel файлы"""
+        """Показывает данные User который отправил Excel файлы"""
         exel_file = check_on_num(request.read)
         queryset = User.objects.get(id=exel_file)
         serializer = UserSerializer(queryset)
@@ -135,7 +139,7 @@ class OrderSendRoomViewSet(ModelViewSet):
     http_method_names = ['get']
 
     def list(self, request, *args, **kwargs):
-        """Отдает все Excel файлы в комнату администратора"""
+        """Отдает Excel файлы у которых is_order=True, в комнату администратора"""
         queryset = self.filter_queryset(self.get_queryset())
         page = self.paginate_queryset(queryset)
         if page is not None:

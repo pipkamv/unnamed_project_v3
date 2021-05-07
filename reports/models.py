@@ -26,7 +26,7 @@ class ExcelFile(models.Model):
         ('shoes', 'Обувь'),
         ('perfume', 'Парфюм')
     )
-    category = models.CharField(max_length=64, choices=CATEGORY)
+    category = models.CharField(max_length=64, choices=CATEGORY, null=True, blank=True,)
 
     def save(self, *args, **kwargs):
         self.file_name = self.excel_file.name
