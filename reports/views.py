@@ -11,11 +11,9 @@ from rest_framework.views import APIView
 from .serializers import (
     ReportSerializer, ExcelFileSerializer, ExcelFileTemplatesSerializer,
     AddProductToExcelFileSerializer, UserSerializer)
-
 from .models import Report, ExcelFile, ExcelFileTemplate, AddProductToExcelFile
-from users.models import User
-
 from unnamed_project.settings import BASE_DIR
+from users.models import User
 
 from datetime import datetime
 import os
@@ -58,7 +56,7 @@ class ExcelFileViewSet(ModelViewSet):
         serializer = self.serializer_class(data=self.request.data)
         id_file = serializer.initial_data['id']
         name_file = ExcelFile.objects.get(id=id_file).excel_file
-        os.remove(BASE_DIR + 'media/' + str(name_file))
+        os.remove('/home/xxxx/unnamed_project_v3/media/' + str(name_file))
         instance = self.get_object()
         self.perform_destroy(instance)
         return Response(status=status.HTTP_204_NO_CONTENT)
