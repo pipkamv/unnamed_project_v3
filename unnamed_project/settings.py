@@ -137,7 +137,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'norma',
+        'NAME': 'asd',
         'USER': 'asd',
         'PASSWORD': 'asd',
         'HOST': '127.0.0.1',

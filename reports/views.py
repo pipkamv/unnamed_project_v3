@@ -42,7 +42,6 @@ class ExcelFileViewSet(ModelViewSet):
 
     def list(self, request, *args, **kwargs):
         file = self.queryset.filter(user=self.request.user)
-        print(file)
         serializer = self.serializer_class(file, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
