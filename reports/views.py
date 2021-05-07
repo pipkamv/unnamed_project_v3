@@ -8,14 +8,12 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.views import APIView
 
-from .serializers import UserSerializer
 from .serializers import (
     ReportSerializer, ExcelFileSerializer, ExcelFileTemplatesSerializer,
     AddProductToExcelFileSerializer, UserSerializer)
-
-from .models import (
-    Report, ExcelFile, ExcelFileTemplate, AddProductToExcelFile)
+from .models import Report, ExcelFile, ExcelFileTemplate, AddProductToExcelFile
 from users.models import User
+
 from datetime import datetime
 import os
 
@@ -44,6 +42,7 @@ class ExcelFileViewSet(ModelViewSet):
 
     def list(self, request, *args, **kwargs):
         file = self.queryset.filter(user=self.request.user)
+        print(file)
         serializer = self.serializer_class(file, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -124,18 +123,20 @@ class SendDataViewSet(ModelViewSet):
         return Response(status=status.HTTP_201_CREATED)
 
     def list(self, request, *args, **kwargs):
+        """Показывает кто из User отправил Excel файлы"""
         exel_file = check_on_num(request.read)
         queryset = User.objects.get(id=exel_file)
         serializer = UserSerializer(queryset)
         return Response(serializer.data)
 
 
-class OrderViewSet(ModelViewSet):
+class OrderSendRoomViewSet(ModelViewSet):
     queryset = ExcelFile.objects.filter(is_order=True)
     serializer_class = ExcelFileSerializer
     http_method_names = ['get']
 
     def list(self, request, *args, **kwargs):
+        """Отдает все Excel файлы в комнату администратора"""
         queryset = self.filter_queryset(self.get_queryset())
         page = self.paginate_queryset(queryset)
         if page is not None:

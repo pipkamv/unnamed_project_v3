@@ -3,7 +3,7 @@ from rest_framework import routers
 
 from .views import (
     ReportViewSet, ExcelFileViewSet, ReportListView, ExcelFileTemplatesViewSet,
-    AddProductToExcelFileViewSet, SendDataViewSet, OrderViewSet
+    AddProductToExcelFileViewSet, SendDataViewSet, OrderSendRoomViewSet
 )
 
 router = routers.DefaultRouter()
@@ -12,7 +12,7 @@ router.register('excel', ExcelFileViewSet)
 router.register('excel-templates', ExcelFileTemplatesViewSet)
 router.register('add-product', AddProductToExcelFileViewSet)
 router.register('send', SendDataViewSet)
-router.register('room', OrderViewSet)
+router.register('room', OrderSendRoomViewSet)
 router.register('reports-list-filter', ReportListView)
 
 
