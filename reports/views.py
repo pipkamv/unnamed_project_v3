@@ -12,7 +12,6 @@ from .serializers import (
     ReportSerializer, ExcelFileSerializer, ExcelFileTemplatesSerializer,
     AddProductToExcelFileSerializer, UserSerializer)
 from .models import Report, ExcelFile, ExcelFileTemplate, AddProductToExcelFile
-from unnamed_project.settings import BASE_DIR
 from users.models import User
 
 from datetime import datetime
