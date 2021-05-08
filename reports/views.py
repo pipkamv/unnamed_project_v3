@@ -56,7 +56,6 @@ class ExcelFileViewSet(ModelViewSet):
         serializer = self.serializer_class(data=self.request.data)
         id_file = serializer.initial_data['id']
         name_file = ExcelFile.objects.get(id=id_file).excel_file
-        os.chmod(os.path.abspath('media/' + str(name_file)), 0777)
         os.remove(os.path.abspath('media/' + str(name_file)))
         instance = self.get_object()
         self.perform_destroy(instance)
