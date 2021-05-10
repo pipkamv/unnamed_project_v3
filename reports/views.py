@@ -16,9 +16,6 @@ from users.models import User
 from unnamed_project.settings import BASE_DIR
 
 from datetime import datetime
-import ast
-import re
-import json
 import os
 
 
