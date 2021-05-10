@@ -22,7 +22,7 @@ class OrderSafeAndSendEmailViewSet(viewsets.ModelViewSet):
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         send_mail('Новый заказ', f'Пользователь {data["first_name"]} заказал {data["product"]}.\n'
-                  f'Его данные: номер телефона-{data["phone"]}, адрес-{data["address"]}',
-                  EMAIL_HOST_USER, ['djanbolotov03@gmail.com'])
+                  f'Его данные: номер телефона-{data["phone"]}, адрес-{data["address"]},  компания-{data["company"]}',
+                  EMAIL_HOST_USER, ['nnormal@gmail.com'])
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
