@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'accountant.apps.AccountantConfig',
     'news.apps.NewsConfig',
     'reports.apps.ReportsConfig',
+    'orders.apps.OrdersConfig',
 
     # cors
     'corsheaders',

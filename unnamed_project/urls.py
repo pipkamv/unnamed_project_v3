@@ -34,6 +34,7 @@ urlpatterns = [
     path('api/accountant/', include('accountant.urls')),
     path('api/reports/', include('reports.urls')),
     path('api/news/', include('news.urls')),
+    path('api/orders/', include('orders.urls')),
 
     # Rest Framework
     path('rest-framework/auth/', include('rest_framework.urls')),

@@ -16,6 +16,9 @@ from users.models import User
 from unnamed_project.settings import BASE_DIR
 
 from datetime import datetime
+import ast
+import re
+import json
 import os
 
 
@@ -125,8 +128,7 @@ class SendDataViewSet(ModelViewSet):
 
     def list(self, request, *args, **kwargs):
         """Показывает данные User который отправил Excel файлы"""
-        exel_file = check_on_num(request.read)
-        queryset = User.objects.get(id=exel_file)
+        queryset = User.objects.get(id=request.GET['user_id'])
         serializer = UserSerializer(queryset)
         return Response(serializer.data)
 
@@ -145,3 +147,4 @@ class OrderSendRoomViewSet(ModelViewSet):
             return self.get_paginated_response(serializer.data)
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
+
