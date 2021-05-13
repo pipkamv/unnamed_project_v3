@@ -1,9 +1,16 @@
 from rest_framework import serializers
-from .models import OrderModels
+from .models import OrderModels, ClientModels
 
 
 class OrderModelsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = OrderModels
-        fields = '__all__'
+        fields = 'all'
+
+
+class ClientModelsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ClientModels
+        fields = 'all'

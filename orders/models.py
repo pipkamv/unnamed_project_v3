@@ -8,10 +8,16 @@ class OrderModels(models.Model):
     address = models.CharField(max_length=64)
     product = models.CharField(max_length=64)
 
-    def __str__(self):
+    def str(self):
         return f'{self.first_name}, {self.company}'
 
     class Meta:
         verbose_name = 'заказ'
         verbose_name_plural = 'заказы'
 
+
+class ClientModels(models.Model):
+      phone_number = models.CharField(max_length=25)
+
+      def __str__(self):
+          return f'{self.phone_number}'
