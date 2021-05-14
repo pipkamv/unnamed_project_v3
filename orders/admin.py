@@ -9,9 +9,6 @@ class OrderModelsAdmin(admin.ModelAdmin):
         model = OrderModels
 
 
-admin.site.register(OrderModels, OrderModelsAdmin)
-
-
 class ClientModelsAdmin(admin.ModelAdmin):
     list_display = [field.name for field in ClientModels._meta.fields]
 
@@ -20,3 +17,4 @@ class ClientModelsAdmin(admin.ModelAdmin):
 
 
 admin.site.register(ClientModels, ClientModelsAdmin)
+admin.site.register(OrderModels, OrderModelsAdmin)

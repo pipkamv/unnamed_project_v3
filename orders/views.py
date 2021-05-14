@@ -39,6 +39,6 @@ class OrderSafeAndSendClientViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
-        send_mail('отправить', f'номер телефона {data["phone_number"]}',
+        send_mail('отправить', f'номер телефона {data["phone"]}',
                   EMAIL_HOST_USER, ['nnormalkg@gmail.com'])
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)

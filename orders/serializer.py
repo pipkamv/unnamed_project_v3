@@ -6,11 +6,11 @@ class OrderModelsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = OrderModels
-        fields = 'all'
+        fields = '__all__'
 
 
 class ClientModelsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ClientModels
-        fields = 'all'
+        fields = '__all__'
