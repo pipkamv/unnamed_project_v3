@@ -34,11 +34,11 @@ class OrderSafeAndSendClientViewSet(viewsets.ModelViewSet):
     http_method_names = ['post']
 
     def create(self, request, *args, **kwargs):
-        data = request.data
+        data = request.POST['phone_number']
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
-        send_mail('отправить', f'номер телефона {data["phone"]}',
-                  EMAIL_HOST_USER, ['nnormalkg@gmail.com'])
+        send_mail('отправить', f'номер телефона {data}',
+                  EMAIL_HOST_USER, ['nnormalkg@gmail.com', 'iakylbek005@gmail.com'])
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
