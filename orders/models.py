@@ -17,7 +17,17 @@ class OrderModels(models.Model):
 
 
 class ClientModels(models.Model):
-    phone_number = models.CharField(max_length=25)
+      phone_number = models.CharField(max_length=25)
+
+      def __str__(self):
+          return f'{self.phone_number}'
+
+
+class NanoModels(models.Model):
+    name = models.CharField(max_length=50)
+    email = models.CharField(max_length=50)
 
     def __str__(self):
-        return f'{self.phone_number}'
+        return f'{self.name}, {self.email}'
+
+

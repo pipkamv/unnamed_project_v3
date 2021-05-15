@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import OrderModels, ClientModels
+from .models import OrderModels, ClientModels, NanoModels
 
 
 class OrderModelsAdmin(admin.ModelAdmin):
@@ -7,6 +7,9 @@ class OrderModelsAdmin(admin.ModelAdmin):
 
     class Meta:
         model = OrderModels
+
+
+admin.site.register(OrderModels, OrderModelsAdmin)
 
 
 class ClientModelsAdmin(admin.ModelAdmin):
@@ -17,4 +20,13 @@ class ClientModelsAdmin(admin.ModelAdmin):
 
 
 admin.site.register(ClientModels, ClientModelsAdmin)
-admin.site.register(OrderModels, OrderModelsAdmin)
+
+
+class NanoModelsAdmin(admin.ModelAdmin):
+    list_display = [field.name for field in NanoModels._meta.fields]
+
+    class Meta:
+        model = NanoModels
+
+
+admin.site.register(NanoModels, NanoModelsAdmin)
