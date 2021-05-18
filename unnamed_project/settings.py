@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'news.apps.NewsConfig',
     'reports.apps.ReportsConfig',
     'orders.apps.OrdersConfig',
+    # 'OFD.apps.OFDConfig'
 
     # cors
     'corsheaders',
@@ -170,7 +171,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'ru'
+LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'Asia/Bishkek'
 
