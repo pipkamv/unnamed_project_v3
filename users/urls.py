@@ -15,11 +15,9 @@ urlpatterns = [
          name="request-password-reset"),
     path('users/password-reset-confirm/<uidb64>/<token>/',
          PasswordTokenCheckGenericAPIView.as_view(), name='password-reset-confirm'),
-    path('users/password-reset-complete/', SetNewPasswordAPIView.as_view(),
-         name='password-reset-complete'),
+    path('users/password-reset-complete/', SetNewPasswordAPIView.as_view(), name='password-reset-complete'),
 
     # email verification
-
     path('users/email-verify/', VerifyEmail.as_view(), name="email-verify"),
 
 ]

@@ -45,7 +45,8 @@ class VerifyEmail(APIView):
 
     @swagger_auto_schema(manual_parameters=[token_param_config])
     def get(self, request):
-        token = request.headers['Authorization']
+        token = request.GET.get('token')
+        # token = request.headers['Authorization']
         try:
             payload = jwt.decode(token, settings.SECRET_KEY)
             user = User.objects.get(id=payload['user_id'])
@@ -70,14 +71,14 @@ class RegistrationAPIView(generics.GenericAPIView):
         user_data = serializer.data
         user = User.objects.get(email=user_data['email'])
         token = RefreshToken.for_user(user).access_token
+
         relativeLink = reverse('users:email-verify')
-        absurl = 'http://lk.norma.kg/auth/activate/' + str(token)
-        email_body = 'Здраствуйте ' + user.first_name + \
-                     'Используйте ссылку ниже что бы активировать аккаунт \n ' \
-                     'Ссылка будет ативен 10 минут \n' + \
+        absurl = 'http://localhost:8000' + relativeLink + "?token=" + str(token)
+        email_body = 'Здраствуйте ' + f'{user.last_name} {user.first_name} \n'\
+                     'Используйте ссылку ниже что бы активировать аккаунт \n'\
+                     'Ссылка будет ативен 10 минут \n' +\
                      absurl
-        data = {'email_body': email_body, 'to_email': user.email,
-                'email_subject': 'Verify your email'}
+        data = {'email_body': email_body, 'to_email': user.email, 'email_subject': 'Verify your email'}
 
         Util.send_email(data)
         return Response(user_data, status=status.HTTP_201_CREATED)
@@ -96,13 +97,8 @@ class RequestPasswordResetEmailAPIView(generics.GenericAPIView):
             uidb64 = urlsafe_base64_encode(smart_bytes(user.id))
             token = PasswordResetTokenGenerator().make_token(user)
             relativeLink = reverse('users:password-reset-confirm', kwargs={'uidb64': uidb64, 'token': token})
-
             redirect_url = request.data.get('redirect_url', '')
-            if ALLOWED_HOSTS:
-                absurl = 'https://' + str(ALLOWED_HOSTS) + relativeLink
-            else:
-                absurl = 'https://' + 'localhost:8000/' + relativeLink
-
+            absurl = 'http://localhost:8000' + relativeLink
             email_body = 'Hello, \n Use link below to reset your password  \n' + \
                          absurl + "?redirect_url=" + redirect_url
             data = {'email_body': email_body, 'to_email': user.email,
@@ -119,6 +115,7 @@ class RequestPasswordResetEmailAPIView(generics.GenericAPIView):
             ]
             return Response(response_data, status=status.HTTP_200_OK)
         return Response({'success': 'We have sent you a link to reset your password'}, status=status.HTTP_200_OK)
+
 
 
 class PasswordTokenCheckGenericAPIView(generics.GenericAPIView):

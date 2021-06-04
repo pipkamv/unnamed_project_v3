@@ -1,5 +1,4 @@
 import pandas as pd
-import xlsxwriter
 
 from .models import AddProductToExcelFile
 
