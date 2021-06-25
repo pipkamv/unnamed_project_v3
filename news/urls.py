@@ -6,8 +6,8 @@ from . import views
 app_name = 'news'
 
 router = routers.DefaultRouter()
-router.register('', views.NewsViewSet)
 router.register('images', views.NewsImageViewSet)
+router.register('', views.NewsViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

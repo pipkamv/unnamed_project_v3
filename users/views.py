@@ -69,7 +69,7 @@ class RegistrationAPIView(generics.GenericAPIView):
         token = RefreshToken.for_user(user).access_token
 
         relativeLink = reverse('users:email-verify')
-        absurl = 'http://localhost:8000' + relativeLink + "?token=" + str(token)
+        absurl = 'http://lk.norma.kg' + relativeLink + "?token=" + str(token)
         email_body = 'Здраствуйте ' + f'{user.last_name} {user.first_name} \n'\
                      'Используйте ссылку ниже что бы активировать аккаунт \n'\
                      'Ссылка будет ативен 10 минут \n' +\
@@ -96,8 +96,8 @@ class RequestPasswordResetEmailAPIView(generics.GenericAPIView):
             relativeLink = reverse('users:password-reset-confirm', kwargs={'uidb64': uidb64, 'token': token})
 
             redirect_url = request.data.get('redirect_url', '')
-            absurl = 'http://localhost:8000' + relativeLink
-            email_body = 'Hello, \nUse link below to reset your password  \n' + \
+            absurl = 'http://lk.norma.kg' + relativeLink
+            email_body = 'Здраствуйте, \nИспользуйте ссылку ниже что бы сбросить пароль \n' + \
                          absurl + "?redirect_url=" + redirect_url
             data = {'email_body': email_body, 'to_email': user.email,
                     'email_subject': 'Reset your password'}
