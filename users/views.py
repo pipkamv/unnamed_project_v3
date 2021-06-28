@@ -42,7 +42,6 @@ class VerifyEmail(APIView):
     @swagger_auto_schema(manual_parameters=[token_param_config])
     def get(self, request):
         token = request.GET.get('token')
-        # token = request.headers['Authorization']
         try:
             payload = jwt.decode(token, settings.SECRET_KEY)
             user = User.objects.get(id=payload['user_id'])
@@ -69,7 +68,7 @@ class RegistrationAPIView(generics.GenericAPIView):
         token = RefreshToken.for_user(user).access_token
 
         relativeLink = reverse('users:email-verify')
-        absurl = 'http://lk.norma.kg/auth/activate/' + "?token=" + str(token)
+        absurl = 'http://lk.norma.kg/auth/activate/' + str(token)
         email_body = 'Здраствуйте ' + f'{user.last_name} {user.first_name} \n'\
                      'Используйте ссылку ниже что бы активировать аккаунт \n'\
                      'Ссылка будет ативен 10 минут \n' +\
