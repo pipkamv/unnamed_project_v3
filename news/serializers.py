@@ -14,7 +14,7 @@ class NewsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = News
-        fields = ['title', 'text', 'created_date', 'published', 'images']
+        fields = '__all__'
 
     def create(self, validated_data):
         images_data = self.context.get('request').FILES

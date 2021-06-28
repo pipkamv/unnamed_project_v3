@@ -19,6 +19,7 @@ class NewsImage(models.Model):
     news_post = models.ForeignKey(News, default=None, on_delete=models.CASCADE,
                                   blank=True, null=True, related_name='images')
     image = models.ImageField(upload_to='news/images')
+    text = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return str(self.news_post)
